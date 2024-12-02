@@ -30,6 +30,5 @@ for i in range(len(left_list)):
     if right_list.count(left_list[i]):
         right_match_count += right_list.count(left_list[i])
         similarity_score += left_list[i] * right_match_count
-        print(True, right_match_count, similarity_score)
 print(similarity_score)
 
