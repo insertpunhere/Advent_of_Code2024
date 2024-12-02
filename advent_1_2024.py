@@ -4,6 +4,7 @@ input_list = input.readlines()
 left_list = []
 right_list = []
 answer = 0
+similarity_score = 0
 
 for i in input_list:
     i = i.split()
@@ -20,5 +21,15 @@ for i in range(len(input_list)):
     else:
        x = right_list[i] - left_list[i]
     answer += x
-    print(answer)
+print(answer)
+# ^^^ Part One answer
+# Part Two
+
+for i in range(len(left_list)):
+    right_match_count = 0
+    if right_list.count(left_list[i]):
+        right_match_count += right_list.count(left_list[i])
+        similarity_score += left_list[i] * right_match_count
+        print(True, right_match_count, similarity_score)
+print(similarity_score)
 
