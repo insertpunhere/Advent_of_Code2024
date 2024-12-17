@@ -39,30 +39,40 @@ for i in range(len(do_indexes)):
     do_dont_dict[f'do{i}']=do_indexes[i]
 for i in range(len(dont_indexes)):
     do_dont_dict[f'dont{i}']=dont_indexes[i]
-# print(do_dont_dict)
+print(do_dont_dict)
 
-x,y=0,0
-current_dont = do_dont_dict.get(f'dont{x}')
-next_dont = do_dont_dict.get(f'dont{x+1}')
-current_do = do_dont_dict.get(f'do{y}')
-next_do = do_dont_dict.get(f'do{y+1}')
+cdont_ind,cdo_ind=0,0
 do = True
-while i < len(big_string):
-    if i == current_do:
-        do = True
-        current_do = next_do
-        # y+=1
-    if i == current_dont:
-        do = False
-        current_dont = next_dont
-        # x+=1
+
+for i in range(len(big_string)):
+    current_dont = do_dont_dict.get(f'dont{cdont_ind}')
+    next_dont = do_dont_dict.get(f'dont{cdont_ind+1}')
+    current_do = do_dont_dict.get(f'do{cdo_ind}')
+    next_do = do_dont_dict.get(f'do{cdo_ind+1}') 
     if do == True:
         do_cleaned_string += big_string[i]
-    i+=1
+    if current_do:
+        if i == int(current_do):
+            do = True
+            # print(i, do, current_do)
+            current_do = next_do
+            cdo_ind += 1
+            next_do = do_dont_dict.get(f'dont{cdo_ind+1}')
+            # print(cdo_ind, next_do)
+    if current_dont:
+        if i == int(current_dont):
+            do = False
+            # print(i, do, current_dont)
+            current_dont = next_dont
+            cdont_ind += 1
+            next_dont = do_dont_dict.get(f'dont{cdont_ind+1}')
+            # print(cdont_ind, next_dont)
+            
 
 mul_count = do_cleaned_string.count('mul(')
-print(mul_count)
+# print(mul_count)
 
+x = 0
 for i in range(mul_count):
     add_mul_brackets(do_cleaned_string, 
         find_mul(
